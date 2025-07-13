@@ -1,7 +1,9 @@
-const { Router } = require('express')
-const AccountController = require('./controller/Account')
-const accountController = new AccountController({})
-const router = Router()
+const { Router } = require("express");
+const AccountController = require("./controller/Account");
+const accountController = new AccountController({});
+const CategoryController = require("./controller/Category");
+const categoryController = new CategoryController({});
+const router = Router();
 
 /**
  * @swagger
@@ -15,7 +17,7 @@ const router = Router()
  *       200:
  *         description: Lista de contas encontradas
  */
-router.get('/account', accountController.find.bind(accountController))
+router.get("/account", accountController.find.bind(accountController));
 
 /**
  * @swagger
@@ -29,7 +31,10 @@ router.get('/account', accountController.find.bind(accountController))
  *       201:
  *         description: Transação criada com sucesso
  */
-router.post('/account/transaction', accountController.createTransaction.bind(accountController))
+router.post(
+  "/account/transaction",
+  accountController.createTransaction.bind(accountController)
+);
 
 /**
  * @swagger
@@ -52,6 +57,65 @@ router.post('/account/transaction', accountController.createTransaction.bind(acc
  *       401:
  *         description: Token invalido
  */
-router.get('/account/:accountId/statement', accountController.getStatment.bind(accountController))
+router.get(
+  "/account/:accountId/statement",
+  accountController.getStatment.bind(accountController)
+);
 
-module.exports = router
+/**
+ * @swagger
+ * /category:
+ *   get:
+ *     summary: Busca categorias
+ *     tags: [Categoria]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de categorias encontradas
+ */
+router.get("/category", categoryController.find.bind(categoryController));
+
+/**
+ * @swagger
+ * /category:
+ *   post:
+ *     summary: Cria uma nova categoria
+ *     tags: [Categoria]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Categoria criada com sucesso
+ */
+router.post("/category", categoryController.create.bind(categoryController));
+
+/**
+ * @swagger
+ * /category:
+ *   put:
+ *     summary: Atualiza uma categoria
+ *     tags: [Categoria]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Categoria atualizada com sucesso
+ */
+router.put("/category", categoryController.update.bind(categoryController));
+
+/**
+ * @swagger
+ * /category:
+ *   delete:
+ *     summary: Remove uma categoria
+ *     tags: [Categoria]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Categoria removida com sucesso
+ */
+router.delete("/category", categoryController.remove.bind(categoryController));
+
+module.exports = router;
