@@ -39,6 +39,9 @@ class CategoryController {
     }
   }
   async update(req, res) {
+    if (req.body.id && !req.body._id) {
+      req.body._id = req.body.id;
+    }
     const category = new categoryDTO(req.body);
     const { categoryRepository, updateCategory } = this.di;
 
@@ -58,6 +61,9 @@ class CategoryController {
     }
   }
   async remove(req, res) {
+    if (req.body.id && !req.body._id) {
+      req.body._id = req.body.id;
+    }
     const category = new categoryDTO(req.body);
     const { categoryRepository, removeCategory } = this.di;
 
