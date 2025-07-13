@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const AccountController = require("./controller/Account");
 const accountController = new AccountController({});
+const CategoryController = require("./controller/Category");
+const categoryController = new CategoryController({});
 const router = Router();
 
 /**
@@ -86,10 +88,7 @@ router.get("/category", categoryController.find.bind(categoryController));
  *       201:
  *         description: Categoria criada com sucesso
  */
-router.post(
-  "/category",
-  categoryController.createTransaction.bind(categoryController)
-);
+router.post("/category", categoryController.create.bind(categoryController));
 
 /**
  * @swagger
@@ -103,10 +102,7 @@ router.post(
  *       201:
  *         description: Categoria atualizada com sucesso
  */
-router.put(
-  "/category",
-  categoryController.createTransaction.bind(categoryController)
-);
+router.put("/category", categoryController.update.bind(categoryController));
 
 /**
  * @swagger
@@ -120,9 +116,6 @@ router.put(
  *       201:
  *         description: Categoria removida com sucesso
  */
-router.delete(
-  "/category",
-  categoryController.createTransaction.bind(categoryController)
-);
+router.delete("/category", categoryController.remove.bind(categoryController));
 
 module.exports = router;
