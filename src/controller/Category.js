@@ -42,10 +42,6 @@ class CategoryController {
     const category = new categoryDTO(req.body);
     const { categoryRepository, updateCategory } = this.di;
 
-    if (!category.isValid())
-      return res
-        .status(400)
-        .json({ message: "não houve informações enviadas" });
     try {
       const categoryUpdated = await updateCategory({
         category,
@@ -65,10 +61,6 @@ class CategoryController {
     const category = new categoryDTO(req.body);
     const { categoryRepository, removeCategory } = this.di;
 
-    if (!category.isValid())
-      return res
-        .status(400)
-        .json({ message: "não houve informações enviadas" });
     try {
       const categoryRemoved = await removeCategory({
         category,

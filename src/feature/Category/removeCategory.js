@@ -1,8 +1,4 @@
-const Category = require("../../models/Category");
-
-const removeCategory = async ({ category, repository }) => {
-  const resultado = await repository.remove(category);
-  return new Category(resultado.toJSON());
+module.exports = async ({ category, repository }) => {
+  if (!category.id) throw new Error("ID da categoria faltando");
+  return repository.remove(category.id);
 };
-
-module.exports = removeCategory;

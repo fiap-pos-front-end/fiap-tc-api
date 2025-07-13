@@ -1,8 +1,5 @@
-const Category = require("../../models/Category");
-
-const getCategory = async ({ categoryFilter, repository }) => {
-  const result = await repository.get(categoryFilter);
-  return result?.map((category) => new Category(category));
+const CategoryDTO = require("../../models/Category");
+module.exports = async ({ repository }) => {
+  const docs = await repository.getAll();
+  return docs.map((d) => new CategoryDTO(d));
 };
-
-module.exports = getCategory;

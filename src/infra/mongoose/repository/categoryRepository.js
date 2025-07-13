@@ -1,32 +1,10 @@
 const { Category } = require("../modelos");
 
-const create = async (categoryData) => {
-  const category = new Category(categoryData);
-  return category.save();
-};
-
-const update = async (categoryData) => {
-  const category = new Category(categoryData);
-  return category.update();
-};
-
-const remove = async (categoryData) => {
-  const category = new Category(categoryData);
-  return category.remove();
-};
-
-const getById = async (id) => {
-  return Category.findById(id);
-};
-
-const get = async (category = {}) => {
-  return Category.find(category);
-};
-
 module.exports = {
-  create,
-  update,
-  remove,
-  getById,
-  get,
+  create: async (data) => Category.create(data),
+  update: async (id, data) =>
+    Category.findByIdAndUpdate(id, data, { new: true, runValidators: true }),
+  remove: async (id) => Category.findByIdAndDelete(id),
+  getById: async (id) => Category.findById(id),
+  getAll: async (filter = {}) => Category.find(filter),
 };

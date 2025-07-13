@@ -1,8 +1,4 @@
-const Category = require("../../models/Category");
-
-const createCategory = async ({ category, repository }) => {
-  const resultado = await repository.create(category);
-  return new Category(resultado.toJSON());
+module.exports = async ({ category, repository }) => {
+  if (!category.isValid()) throw new Error("Categoria inválida");
+  return repository.create({ name: category.name });
 };
-
-module.exports = createCategory;
