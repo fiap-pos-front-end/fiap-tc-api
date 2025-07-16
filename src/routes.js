@@ -92,7 +92,7 @@ router.post("/category", categoryController.create.bind(categoryController));
 
 /**
  * @swagger
- * /category:
+ * /category/{id}:
  *   put:
  *     summary: Atualiza uma categoria
  *     tags: [Categoria]
@@ -102,11 +102,11 @@ router.post("/category", categoryController.create.bind(categoryController));
  *       201:
  *         description: Categoria atualizada com sucesso
  */
-router.put("/category", categoryController.update.bind(categoryController));
+router.put("/category/:id", categoryController.update.bind(categoryController));
 
 /**
  * @swagger
- * /category:
+ * /category/{id}:
  *   delete:
  *     summary: Remove uma categoria
  *     tags: [Categoria]
@@ -116,6 +116,9 @@ router.put("/category", categoryController.update.bind(categoryController));
  *       201:
  *         description: Categoria removida com sucesso
  */
-router.delete("/category", categoryController.remove.bind(categoryController));
+router.delete(
+  "/category/:id",
+  categoryController.remove.bind(categoryController)
+);
 
 module.exports = router;

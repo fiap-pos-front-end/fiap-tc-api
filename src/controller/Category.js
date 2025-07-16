@@ -61,11 +61,13 @@ class CategoryController {
     }
   }
   async remove(req, res) {
-    if (req.body.id && !req.body._id) {
-      req.body._id = req.body.id;
-    }
-    const category = new categoryDTO(req.body);
+    const { id } = req.params;
     const { categoryRepository, removeCategory } = this.di;
+    const category = await categoryRepository.getById(id);
+
+    if (!category) {
+      return res.status(404).json({ message: "Categoria não encontrada." });
+    }
 
     try {
       const categoryRemoved = await removeCategory({

@@ -224,7 +224,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IklzcmFlbCAyIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6InRlc3RlcyIsImlkIjoiNjc2MDcxMzNmODQwYmI5Nzg5MmViNjU3IiwiaWF0IjoxNzM0MzczNjg4LCJleHAiOjE3MzQ0MTY4ODh9.jtaRKSifN_j7rFWn1KkH5fykecwhXFW0G4wLqj24I-k",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
@@ -233,7 +233,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"id\": 1,\n    \"name\": \"Categoria Atualizada\"\n}",
+          "raw": "{\n    \"name\": \"Categoria Atualizada\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -241,10 +241,16 @@
           }
         },
         "url": {
-          "raw": "localhost:3000/category",
+          "raw": "localhost:3000/category?id={{categoryId}}",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["category"]
+          "path": ["category"],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{categoryId}}"
+            }
+          ]
         }
       },
       "response": []
@@ -257,27 +263,24 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IklzcmFlbCAyIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJwYXNzd29yZCI6InRlc3RlcyIsImlkIjoiNjc2MDcxMzNmODQwYmI5Nzg5MmViNjU3IiwiaWF0IjoxNzM0MzczNjg4LCJleHAiOjE3MzQ0MTY4ODh9.jtaRKSifN_j7rFWn1KkH5fykecwhXFW0G4wLqj24I-k",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
         },
         "method": "DELETE",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"id\": 1\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "localhost:3000/category",
+          "raw": "localhost:3000/category?id={{categoryId}}",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["category"]
+          "path": ["category"],
+          "query": [
+            {
+              "key": "id",
+              "value": "{{categoryId}}"
+            }
+          ]
         }
       },
       "response": []
