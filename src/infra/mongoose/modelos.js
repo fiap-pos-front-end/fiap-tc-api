@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CardSchema = new Schema(
@@ -36,7 +36,29 @@ const CardSchema = new Schema(
     },
     accountId: {
       type: Schema.Types.ObjectId,
-      ref: "Account",
+      ref: 'Account',
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const TransactionSchema = new Schema(
+  {
+    type: {
+      type: String,
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    category: {
+      type: String,
       required: true,
     },
   },
@@ -61,7 +83,7 @@ const AccountSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
   },
@@ -91,16 +113,16 @@ const DetailedAccountSchema = new Schema(
       type: Date,
       required: true,
     },
-    accountId: {
-      type: Schema.Types.ObjectId,
-      ref: "Account",
-      required: true,
-    },
-    categoryId: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
+    // accountId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Account',
+    //   required: true,
+    // },
+    // categoryId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Category",
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );
@@ -121,7 +143,7 @@ const InvestmentSchema = new Schema(
     },
     accountId: {
       type: Schema.Types.ObjectId,
-      ref: "Account",
+      ref: 'Account',
       required: true,
     },
   },
@@ -147,34 +169,34 @@ const UserSchema = new Schema(
 );
 
 // Definindo as relações virtuais
-AccountSchema.virtual("cards", {
-  ref: "Card",
-  localField: "_id",
-  foreignField: "accountId",
+AccountSchema.virtual('cards', {
+  ref: 'Card',
+  localField: '_id',
+  foreignField: 'accountId',
 });
 
-AccountSchema.virtual("investments", {
-  ref: "Investment",
-  localField: "_id",
-  foreignField: "accountId",
+AccountSchema.virtual('investments', {
+  ref: 'Investment',
+  localField: '_id',
+  foreignField: 'accountId',
 });
 
-AccountSchema.virtual("transactions", {
-  ref: "DetailedAccount",
-  localField: "_id",
-  foreignField: "accountId",
+AccountSchema.virtual('transactions', {
+  ref: 'DetailedAccount',
+  localField: '_id',
+  foreignField: 'accountId',
 });
 
-CategorySchema.virtual("transactions", {
-  ref: "DetailedAccount",
-  localField: "_id",
-  foreignField: "accountId",
+CategorySchema.virtual('transactions', {
+  ref: 'DetailedAccount',
+  localField: '_id',
+  foreignField: 'accountId',
 });
 
-UserSchema.virtual("accounts", {
-  ref: "Account",
-  localField: "_id",
-  foreignField: "userId",
+UserSchema.virtual('accounts', {
+  ref: 'Account',
+  localField: '_id',
+  foreignField: 'userId',
 });
 
 // Configurando as opções para que os virtuals sejam incluídos quando converter para JSON
@@ -188,14 +210,12 @@ CategorySchema.set(schemaOptions);
 UserSchema.set(schemaOptions);
 
 // Criando os modelos
-const Card = mongoose.model("Card", CardSchema);
-const Category = mongoose.model("Category", CategorySchema);
-const Account = mongoose.model("Account", AccountSchema);
-const DetailedAccount = mongoose.model(
-  "DetailedAccount",
-  DetailedAccountSchema
-);
-const Investment = mongoose.model("Investment", InvestmentSchema);
-const User = mongoose.model("User", UserSchema);
+const Card = mongoose.model('Card', CardSchema);
+const Category = mongoose.model('Category', CategorySchema);
+const Account = mongoose.model('Account', AccountSchema);
+const DetailedAccount = mongoose.model('DetailedAccount', DetailedAccountSchema);
+const Transaction = mongoose.model('Transaction', TransactionSchema);
+const Investment = mongoose.model('Investment', InvestmentSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = { Account, Category, User, Investment, DetailedAccount, Card };
+module.exports = { Account, Category, User, Investment, DetailedAccount, Card, Transaction };

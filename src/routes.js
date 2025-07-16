@@ -1,7 +1,7 @@
-const { Router } = require("express");
-const AccountController = require("./controller/Account");
+const { Router } = require('express');
+const AccountController = require('./controller/Account');
 const accountController = new AccountController({});
-const CategoryController = require("./controller/Category");
+const CategoryController = require('./controller/Category');
 const categoryController = new CategoryController({});
 const router = Router();
 
@@ -17,7 +17,9 @@ const router = Router();
  *       200:
  *         description: Lista de contas encontradas
  */
-router.get("/account", accountController.find.bind(accountController));
+router.get('/account', accountController.find.bind(accountController));
+
+router.post('/transaction/create', accountController.createNewTransaction.bind(accountController));
 
 /**
  * @swagger
@@ -31,10 +33,7 @@ router.get("/account", accountController.find.bind(accountController));
  *       201:
  *         description: Transação criada com sucesso
  */
-router.post(
-  "/account/transaction",
-  accountController.createTransaction.bind(accountController)
-);
+router.post('/account/transaction', accountController.createTransaction.bind(accountController));
 
 /**
  * @swagger
@@ -57,10 +56,7 @@ router.post(
  *       401:
  *         description: Token invalido
  */
-router.get(
-  "/account/:accountId/statement",
-  accountController.getStatment.bind(accountController)
-);
+router.get('/account/:accountId/statement', accountController.getStatment.bind(accountController));
 
 /**
  * @swagger
@@ -74,7 +70,7 @@ router.get(
  *       200:
  *         description: Lista de categorias encontradas
  */
-router.get("/category", categoryController.find.bind(categoryController));
+router.get('/category', categoryController.find.bind(categoryController));
 
 /**
  * @swagger
@@ -88,7 +84,7 @@ router.get("/category", categoryController.find.bind(categoryController));
  *       201:
  *         description: Categoria criada com sucesso
  */
-router.post("/category", categoryController.create.bind(categoryController));
+router.post('/category', categoryController.create.bind(categoryController));
 
 /**
  * @swagger
@@ -102,7 +98,7 @@ router.post("/category", categoryController.create.bind(categoryController));
  *       201:
  *         description: Categoria atualizada com sucesso
  */
-router.put("/category", categoryController.update.bind(categoryController));
+router.put('/category', categoryController.update.bind(categoryController));
 
 /**
  * @swagger
@@ -116,6 +112,6 @@ router.put("/category", categoryController.update.bind(categoryController));
  *       201:
  *         description: Categoria removida com sucesso
  */
-router.delete("/category", categoryController.remove.bind(categoryController));
+router.delete('/category', categoryController.remove.bind(categoryController));
 
 module.exports = router;
