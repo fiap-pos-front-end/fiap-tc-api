@@ -1,0 +1,409 @@
+{
+  "info": {
+    "name": "API Financeira",
+    "_postman_id": "api-financeira-collection",
+    "description": "Cole\u00e7\u00e3o gerada automaticamente a partir do Swagger",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /auth/login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["auth", "login"]
+        },
+        "description": "AuthController_login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /auth/register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/auth/register",
+          "host": ["{{base_url}}"],
+          "path": ["auth", "register"]
+        },
+        "description": "AuthController_register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"123456\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "POST /categories",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/categories",
+          "host": ["{{base_url}}"],
+          "path": ["categories"]
+        },
+        "description": "CategoriesController_create",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Luz\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/categories",
+          "host": ["{{base_url}}"],
+          "path": ["categories"]
+        },
+        "description": "CategoriesController_findAll",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /categories/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/categories/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["categories", "{id}"]
+        },
+        "description": "CategoriesController_findOne",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT /categories/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/categories/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["categories", "{id}"]
+        },
+        "description": "CategoriesController_update",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Luz\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE /categories/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/categories/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["categories", "{id}"]
+        },
+        "description": "CategoriesController_remove",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "POST /transactions",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions",
+          "host": ["{{base_url}}"],
+          "path": ["transactions"]
+        },
+        "description": "TransactionsController_create",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"\",\n  \"date\": \"2025-12-31T20:59:59-03:00\",\n  \"amount\": 100.15,\n  \"categoryId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET /transactions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions",
+          "host": ["{{base_url}}"],
+          "path": ["transactions"]
+        },
+        "description": "TransactionsController_findAll",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /transactions/getTotalBalance",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/getTotalBalance",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "getTotalBalance"]
+        },
+        "description": "TransactionsController_getTotalBalance",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /transactions/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "{id}"]
+        },
+        "description": "TransactionsController_findOne",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT /transactions/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "{id}"]
+        },
+        "description": "TransactionsController_update",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"\",\n  \"date\": \"2025-12-31T20:59:59-03:00\",\n  \"amount\": 100.15,\n  \"categoryId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "DELETE /transactions/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/{id}",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "{id}"]
+        },
+        "description": "TransactionsController_remove",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /transactions/{id}/attachments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/{id}/attachments",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "{id}", "attachments"]
+        },
+        "description": "TransactionsController_findAllAttachments",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT /transactions/{id}/attachments",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/transactions/{id}/attachments",
+          "host": ["{{base_url}}"],
+          "path": ["transactions", "{id}", "attachments"]
+        },
+        "description": "TransactionsController_uploadAttachments",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": "JWT_TOKEN_AQUI"
+    }
+  ]
+}
