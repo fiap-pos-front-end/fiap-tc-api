@@ -1,5 +1,14 @@
 # 📘 Documentação da API
 
+- Rode esses comandos para executar a API localmente:
+
+```sh
+npm i
+npm run prisma:generate
+npm run prisma:dev
+npm run start:dev
+```
+
 [⬇️ Baixar Collection Postman](./api-financeira.postman_collection.json)
 
 ## `POST /auth/login`
