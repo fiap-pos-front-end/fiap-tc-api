@@ -6,38 +6,46 @@ import {
 import { S3Service } from '../../services/s3.service';
 import { TransactionDto } from './dto/transaction.dto';
 import { PrismaService } from 'src/common/prisma.service';
+import { CryptoService } from '../crypto/crypto.service';
 
 @Injectable()
 export class TransactionsService {
   constructor(
     private prisma: PrismaService,
     private s3: S3Service,
+    private cryptoService: CryptoService,
   ) {}
 
   async getTotalBalance(userId: number) {
-    const [receitas, despesas] = await Promise.all([
-      this.prisma.transaction.aggregate({
-        _sum: { amount: true },
-        where: { type: 'Receita', userId },
-      }),
-      this.prisma.transaction.aggregate({
-        _sum: { amount: true },
-        where: { type: 'Despesa', userId },
-      }),
-    ]);
+    const transactions = await this.prisma.transaction.findMany({
+      where: { userId },
+      select: { type: true, amount: true },
+    });
 
-    const totalReceitas = receitas?._sum.amount || 0;
-    const totalDespesas = despesas?._sum.amount || 0;
+    const values = transactions.map(t => {
+      const decrypted = this.cryptoService.decrypt(t.amount);
+      const value = parseFloat(decrypted);
+      return { type: t.type, value };
+    });
+
+    const totalReceitas = values
+      .filter(v => v.type === 'Receita')
+      .reduce((sum, v) => sum + v.value, 0);
+
+    const totalDespesas = values
+      .filter(v => v.type === 'Despesa')
+      .reduce((sum, v) => sum + v.value, 0);
 
     return totalReceitas - totalDespesas;
   }
+
 
   async create(dto: TransactionDto, userId: number) {
     return await this.prisma.transaction.create({
       data: {
         type: dto.type,
         date: new Date(dto.date),
-        amount: dto.amount,
+        amount: this.cryptoService.encrypt(dto.amount.toString()),
         attachments: '',
         categoryId: dto.categoryId,
         userId,
@@ -46,13 +54,19 @@ export class TransactionsService {
   }
 
   async findAll(userId: number) {
-    return await this.prisma.transaction.findMany({
+    const transactions = await this.prisma.transaction.findMany({
       where: { userId },
       include: {
         category: true,
       },
     });
+
+    return transactions.map((t) => ({
+      ...t,
+      amount: Number(this.cryptoService.decrypt(t.amount)),
+    }));
   }
+
 
   async findOne(id: number, userId: number) {
     const transaction = await this.prisma.transaction.findFirst({
@@ -63,10 +77,14 @@ export class TransactionsService {
     });
 
     if (!transaction)
-      throw new NotFoundException('Transactionência não encontrada!');
+      throw new NotFoundException('Transferência não encontrada!');
 
-    return transaction;
+    return {
+      ...transaction,
+      amount: Number(this.cryptoService.decrypt(transaction.amount)),
+    };
   }
+
 
   async findAllAttachments(id: number, userId: number) {
     const transaction = await this.findOne(id, userId);
@@ -84,11 +102,18 @@ export class TransactionsService {
   async update(id: number, data: any, userId: number) {
     await this.findOne(id, userId);
 
+    const payload = { ...data };
+
+    if (payload.amount !== undefined && payload.amount !== null) {
+      payload.amount = this.cryptoService.encrypt(String(payload.amount));
+    }
+
     return await this.prisma.transaction.update({
       where: { id },
-      data,
+      data: payload,
     });
   }
+
   async uploadAttachments(
     id: number,
     files: Express.Multer.File[],
