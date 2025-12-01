@@ -53,7 +53,7 @@ export class TransactionsService {
     });
   }
 
-  async findAll(userId: number) {
+ async findAll(userId: number) {
     const transactions = await this.prisma.transaction.findMany({
       where: { userId },
       include: {
@@ -64,11 +64,14 @@ export class TransactionsService {
     return transactions.map((t) => ({
       ...t,
       amount: Number(this.cryptoService.decrypt(t.amount)),
+      category: {
+        ...t.category,
+        name: this.cryptoService.decrypt(t.category.name),
+      },
     }));
   }
 
-
-  async findOne(id: number, userId: number) {
+ async findOne(id: number, userId: number) {
     const transaction = await this.prisma.transaction.findFirst({
       where: { id, userId },
       include: {
@@ -82,9 +85,12 @@ export class TransactionsService {
     return {
       ...transaction,
       amount: Number(this.cryptoService.decrypt(transaction.amount)),
+      category: {
+        ...transaction.category,
+        name: this.cryptoService.decrypt(transaction.category.name),
+      },
     };
   }
-
 
   async findAllAttachments(id: number, userId: number) {
     const transaction = await this.findOne(id, userId);
