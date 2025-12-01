@@ -19,12 +19,17 @@ export class CategoriesService {
     if (exists)
       throw new BadRequestException(`A categoria "${data.name}" já existe!`);
 
-    return await this.prisma.category.create({
+    let obj = await this.prisma.category.create({
       data: {
         name: this.cryptoService.encrypt(data.name),
         userId,
       },
     });
+
+    return {
+      ...obj,
+      name: this.cryptoService.decrypt(obj.name),
+    };
   }
 
   async findAll(userId: number) {
@@ -58,10 +63,18 @@ export class CategoriesService {
   async update(id: number, data: CategoryDto, userId: number) {
     await this.findOne(id, userId);
 
-    return await this.prisma.category.update({
-      where: { id },
-      data,
+    let obj = await this.prisma.category.update({
+       where: { id },
+      data: {
+        name: this.cryptoService.encrypt(data.name),
+        userId,
+      },
     });
+
+    return {
+      ...obj,
+      name: this.cryptoService.decrypt(obj.name),
+    };
   }
 
   async remove(id: number, userId: number) {
