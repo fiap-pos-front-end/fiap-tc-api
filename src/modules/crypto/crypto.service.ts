@@ -15,18 +15,18 @@ export class CryptoService {
 
   }
 
-  encrypt(plaintext: string): string {
+  encrypt(plainText: string): string {
     const iv = crypto.randomBytes(12);
     const cipher = crypto.createCipheriv(this.algorithm, this.key, iv);
 
-    const ciphertext = Buffer.concat([
-      cipher.update(plaintext, 'utf8'),
+    const cipherText = Buffer.concat([
+      cipher.update(plainText, 'utf8'),
       cipher.final(),
     ]);
 
     const authTag = cipher.getAuthTag();
 
-    const packed = Buffer.concat([iv, authTag, ciphertext]);
+    const packed = Buffer.concat([iv, authTag, cipherText]);
 
     return packed.toString('base64');
   }

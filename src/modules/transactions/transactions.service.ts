@@ -53,7 +53,7 @@ export class TransactionsService {
     });
   }
 
- async findAll(userId: number) {
+  async findAll(userId: number) {
     const transactions = await this.prisma.transaction.findMany({
       where: { userId },
       include: {
@@ -71,7 +71,7 @@ export class TransactionsService {
     }));
   }
 
- async findOne(id: number, userId: number) {
+  async findOne(id: number, userId: number) {
     const transaction = await this.prisma.transaction.findFirst({
       where: { id, userId },
       include: {
@@ -110,7 +110,7 @@ export class TransactionsService {
 
     const payload = { ...data };
 
-    if (payload.amount !== undefined && payload.amount !== null) {
+    if (!!payload.amount) {
       payload.amount = this.cryptoService.encrypt(String(payload.amount));
     }
 
