@@ -2,7 +2,6 @@
 
 Esta API foi desenvolvida com foco em segurança, simplicidade e manutenibilidade. Utiliza-se Prisma e SQLite, garantindo facilidade de setup e portabilidade.
 Os dados sensíveis são protegidos por um mecanismo de criptografia em duas camadas, combinando uma chave mestra com uma chave aleatória por registro, aumentando significativamente o nível de segurança e dificultando qualquer tentativa de comprometimento dos dados armazenados.
----
 
 - Rode esses comandos para executar a API localmente:
 
