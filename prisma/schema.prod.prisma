@@ -28,7 +28,7 @@ model Transaction {
   id          Int          @id @default(autoincrement())
   type        String
   date        DateTime
-  amount      Float
+  amount      String
   attachments String
 
   category    Category     @relation(fields: [categoryId], references: [id])
